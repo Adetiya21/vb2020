@@ -126,7 +126,7 @@ class Anggota extends CI_Controller {
         	
         	// jika nama tidak di ganti
 			if ($row->nama == $this->input->post('nama')) {
-				$slug = url_title($this->input->post('nama'), 'dash', TRUE);
+				$slug = url_title($this->input->post('nama'), 'dash', TRUE); //membuat data slug berdasarkan nama
 				$data = array(
 					'nama' => $this->input->post('nama'),
 					'tmp_lahir' => $this->input->post('tmp_lahir'),

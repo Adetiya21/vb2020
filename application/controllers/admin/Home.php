@@ -105,7 +105,7 @@ class Home extends CI_Controller {
 
 				// fungsi update
 				$this->DButama->UpdateDB($this->table,$where,$data);
-				// menampilkan pesan error
+				// menampilkan pesan sukses
 				$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<strong>Akun anda sudah diperbaharui</strong> 

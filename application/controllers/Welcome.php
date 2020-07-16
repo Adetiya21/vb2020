@@ -28,12 +28,14 @@ class Welcome extends CI_Controller {
 		$this->load->view('utama/temp-footer');
 	}
 
-	// fun login
+	// proses login
 	public function login()
 	{
+		// recaptcha google
 		$recaptcha = $this->input->post('g-recaptcha-response');
 		$response = $this->recaptcha->verifyResponse($recaptcha);
 		if (!isset($response['success']) || $response['success'] <> true) {
+			// menampilkan pesan error
 			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<strong>Klik Recaptcha</strong> 
@@ -41,8 +43,10 @@ class Welcome extends CI_Controller {
 			redirect('welcome','refresh');
 		} else {
 			if ($this->input->is_ajax_request()) {
+				// load databases dengan filter email
 				$query = $this->DButama->GetDBWhere('tb_anggota', array('email' => $this->input->post('email'), ));
 				if ($query->num_rows() == 0 ) {
+					// menampilkan pesan error
 					$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<strong>Email / Password Tidak Ada</strong> 
@@ -59,7 +63,9 @@ class Welcome extends CI_Controller {
 							$sess_data['no_telp'] = $key->no_telp;
 							$sess_data['alamat'] = $key->alamat;
 							$sess_data['id'] = $key->id;
-							$this->session->set_userdata($sess_data);  //menyimpan data user ke session
+
+							//menyimpan data user ke session
+							$this->session->set_userdata($sess_data);  
 							$this->session->unset_userdata('admin_logged_in');  //mengeluarkan session admin
 							$this->session->unset_userdata('pelatih_logged_in');  //mengeluarkan session pelatih
 							echo json_encode(array("status" => TRUE));
@@ -70,7 +76,7 @@ class Welcome extends CI_Controller {
 		}
 	}
 
-	// fun logout
+	// proses logout
 	function logout()
 	{
 		$user_data = $this->session->all_userdata();

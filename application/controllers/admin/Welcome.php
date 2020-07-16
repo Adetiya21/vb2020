@@ -60,7 +60,8 @@ class Welcome extends CI_Controller {
 
 							// menyimpan data ke session admin
 							$this->session->set_userdata($sess_data);
-							$this->session->unset_userdata('user_logged_in');
+							$this->session->unset_userdata('user_logged_in');  //mengeluarkan session user
+							$this->session->unset_userdata('pelatih_logged_in');  //mengeluarkan session pelatih
 							redirect('admin/home', 'refresh');
 						}
 					}else{
