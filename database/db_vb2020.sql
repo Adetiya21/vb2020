@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 15, 2020 at 05:27 AM
+-- Generation Time: Jul 16, 2020 at 12:02 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.3
 
@@ -77,8 +77,9 @@ INSERT INTO `tb_anggota` (`id`, `nama`, `tmp_lahir`, `tgl_lahir`, `jenkel`, `ala
 (2, 'Putri', 'Pontianak', '1998-08-21', 'Perempuan', 'alamat', 'prestasi', 170, 65, '081234567890', 'email1@email1.com', 'Spiker / Smasher', 'motivasi', '$2y$10$7VXeLyRJ1O.Vh0m0fxJ0/.EBL0Q3olevSiSHtb5RWyPkf/mdwB8oK', NULL, 'Calon Anggota', 'putri'),
 (8, 'dika', '1', '2020-07-12', 'Laki-Laki', '1', '1', 1, 1, '1', '1@1.com', 'Tosser / Set-Upper', '1', '$2y$10$7VXeLyRJ1O.Vh0m0fxJ0/.EBL0Q3olevSiSHtb5RWyPkf/mdwB8oK', NULL, 'Calon Anggota', 'dika'),
 (9, 'wira', '2', '2020-02-14', 'Perempuan', '2', '2', 2, 2, '2', '2@2.com', 'Tosser / Set-Upper', '2', '$2y$10$b0.Be5tdWIR3lSvSB.3xi.ARNXgLU46YLRLXmmVjjF9TXcengSPpe', 'cb22255f0628cd2971220cf70fe5c1e7.png', 'Calon Anggota', 'wira'),
-(10, 'Adetiya Burhasan Putra', '3', '2020-07-03', 'Perempuan', '3', '3', 3, 3, '3', '3@3.com', 'Defender / Libero', '3', '$2y$10$vpLR2R8gpQ7MzfIeuHza3u3UIoCieXb4vnaHa6q/cEryab1PlX.RO', 'b9bf6ab85a6c62b683ac689e33442433.jpg', 'Calon Anggota', 'adetiya-burhasan-putra'),
-(11, 'Anggota 32', '32', '2020-07-03', 'Perempuan', '32', '32', 32, 32, '32', '32@32.com', 'Server', '32', '$2y$10$PQMycLFDqHryLGkHTWPlsehfSCSU36aSkQfmkHCzK0voCFmb7j456', 'fdce948d5b0fd9b67eac87c5b8e76bff.png', 'Calon Anggota', 'anggota-32');
+(10, 'Adetiya Burhasan Putra', '3', '2020-07-03', 'Perempuan', '3', '3', 3, 3, '3', '3@3.com', 'Defender / Libero', '3', '$2y$10$MZPQ38AtoZWf6D2jDGDTXeSuZfOvDzir5vzXV1Ykc2Wf2m/CU.bnu', 'b9bf6ab85a6c62b683ac689e33442433.jpg', 'Calon Anggota', 'adetiya-burhasan-putra'),
+(11, 'Anggota 32', '32', '2020-07-03', 'Perempuan', '32', '32', 32, 32, '32', '32@32.com', 'Server', '32', '$2y$10$PQMycLFDqHryLGkHTWPlsehfSCSU36aSkQfmkHCzK0voCFmb7j456', 'fdce948d5b0fd9b67eac87c5b8e76bff.png', 'Calon Anggota', 'anggota-32'),
+(12, '5', '5', '2020-07-15', 'Laki-Laki', '5', '5', 5, 5, '5', '5@5.com', 'Server', '5', '$2y$10$5rA1C5bEKHQftHkepkB8JOShhqz44ZBQPdjhs/dNOWPnX62/RSBqG', NULL, 'Calon Anggota', '5');
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,7 @@ CREATE TABLE `tb_club` (
 --
 
 INSERT INTO `tb_club` (`id`, `nama`, `sejarah`, `arti_logo`, `gambar`, `slug`) VALUES
-(1, 'TB VAS', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n', '<p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>\r\n', '2d316cb8bb7938605f598fd648e8c777.jpg', 'nama-club');
+(1, 'TB VAS', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n', '<p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore. hello adet\r\n</p>', '2d316cb8bb7938605f598fd648e8c777.jpg', 'nama-club');
 
 -- --------------------------------------------------------
 
@@ -115,15 +116,6 @@ CREATE TABLE `tb_jadwal_latihan` (
   `jam_mulai` time NOT NULL,
   `jam_selesai` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tb_jadwal_latihan`
---
-
-INSERT INTO `tb_jadwal_latihan` (`id`, `id_pelatih`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
-(1, 1, 'Senin', '16:00:00', '18:00:00'),
-(3, 1, 'Selasa', '15:00:00', '18:00:00'),
-(4, 3, 'Rabu', '14:00:00', '20:00:00');
 
 -- --------------------------------------------------------
 
@@ -145,9 +137,7 @@ CREATE TABLE `tb_jadwal_tes` (
 --
 
 INSERT INTO `tb_jadwal_tes` (`id`, `id_pelatih`, `tgl`, `jam_mulai`, `jam_selesai`, `status`) VALUES
-(1, 3, '2020-07-13', '16:00:00', '20:00:00', 'Belum Selesai'),
-(2, 1, '2020-07-31', '15:00:00', '16:00:00', 'Selesai'),
-(5, 1, '2020-07-03', '11:11:00', '11:11:00', 'Belum Selesai');
+(6, 3, '2020-07-25', '15:00:00', '17:00:00', 'Belum Selesai');
 
 -- --------------------------------------------------------
 
@@ -196,8 +186,10 @@ CREATE TABLE `tb_pelatih` (
 --
 
 INSERT INTO `tb_pelatih` (`id`, `nama`, `melatih`, `pengalaman`, `email`, `no_telp`, `alamat`, `password`, `gambar`, `slug`) VALUES
-(1, 'Adetiya', 'Pria', 'banyakw                        ', '0@0.com', '081234567890', 'Jalan Jalan                        ', '$2y$10$1bOGZjiBBIQ45i4/frM7UuzHiwuMjzTU4H6wHR6hs3xA7.BahQJ4a', 'cb7df40e2890c3474f993aaf56f9ce98.jpg', 'adetiya'),
-(3, 'Burhasan', 'Pria', '2', '1@1.com', '1', '1', '$2y$10$jQ/aRvEPcAZSkNJCRFF4n.znwx1gLIECGkTA1IcqoC2tvAZa3Xvx2', 'e5e408b59d2bc3d5ac7e4211c2e42149.jpg', 'burhasan');
+(3, 'Masrun', 'Pria', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'pelatih@pelatih.com', '08', 'Jalan', '$2y$10$KhCILWYtlRkOUDdP9c.UD.IRwhJYwhjXqSepTHHAEYHW/dE4QfV8O', 'gambar.jpg', 'andi-purnomo-spd'),
+(4, 'Andi Purnomo, S.Pd', 'Pria', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'pelatih1@pelatih.com', '08', 'Jalan', '$2y$10$KhCILWYtlRkOUDdP9c.UD.IRwhJYwhjXqSepTHHAEYHW/dE4QfV8O', 'gambar1.jpg', 'andi-purnomo-spd'),
+(5, 'Deny Firmansyah, S.Pd', 'Pria', ' Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'pelatih2@pelatih.com', '08', 'Jalan', '$2y$10$jzQIK5d5NU275H5N6i0MCeZKUCFs20PA1QT0Unm/PLnUHHsLUEvUC', 'gambar2.jpg', 'deny-firmansyah-spd'),
+(6, 'Sumantri, S.Pd', 'Wanita', ' Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'pelatih3@pelatih.com', '08', 'Jalan', '$2y$10$Ug8CO9u89a2DYA5h0bcsWe6sK5oB4DjIb6Gz3gIJmvMI25wKk4cUK', 'gambar3.jpg', 'sumantri-spd');
 
 -- --------------------------------------------------------
 
@@ -212,18 +204,6 @@ CREATE TABLE `tb_pengumuman` (
   `keterangan` enum('Belum Lulus','Lulus') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tb_pengumuman`
---
-
-INSERT INTO `tb_pengumuman` (`id`, `id_jadwal_tes`, `id_anggota`, `keterangan`) VALUES
-(14, 5, 1, 'Lulus'),
-(15, 5, 2, 'Lulus'),
-(16, 1, 10, 'Belum Lulus'),
-(17, 2, 10, 'Belum Lulus'),
-(18, 5, 10, 'Belum Lulus'),
-(19, 2, 9, 'Belum Lulus');
-
 -- --------------------------------------------------------
 
 --
@@ -233,7 +213,7 @@ INSERT INTO `tb_pengumuman` (`id`, `id_jadwal_tes`, `id_anggota`, `keterangan`) 
 CREATE TABLE `tb_pengurus` (
   `id` int(11) NOT NULL,
   `nama` varchar(50) NOT NULL,
-  `posisi` varchar(50) NOT NULL,
+  `posisi` enum('Pemilik Club','Penasehat','Ketua','Wakil Ketua','Pelatih Kepala','Bagian Umum','Sekretaris','Bendahara','Tim Pelatih') NOT NULL,
   `gambar` varchar(255) DEFAULT NULL,
   `slug` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -243,7 +223,21 @@ CREATE TABLE `tb_pengurus` (
 --
 
 INSERT INTO `tb_pengurus` (`id`, `nama`, `posisi`, `gambar`, `slug`) VALUES
-(3, 'Adetiya', 'Direktur', '0d89d1bbf4b6925507a277ae99c9713e.png', '');
+(3, 'Syahrul', 'Pemilik Club', '0d89d1bbf4b6925507a277ae99c9713e.png', ''),
+(4, 'Ahlpiance', 'Penasehat', NULL, ''),
+(5, 'Bagus Prastio, S.IP', 'Penasehat', NULL, ''),
+(6, 'Alif Syaifudin. H, S.Pd, M.SI', 'Ketua', NULL, ''),
+(7, 'Rustam', 'Wakil Ketua', NULL, ''),
+(8, 'Faisal Sigit, S.Pd', 'Sekretaris', NULL, ''),
+(9, 'Eko Sarjono, A.MA.Pd', 'Bendahara', NULL, ''),
+(10, 'Sabandi', 'Bagian Umum', NULL, ''),
+(11, 'Tonut', 'Bagian Umum', NULL, ''),
+(12, 'Bahwan', 'Bagian Umum', NULL, ''),
+(13, 'Sumardi', 'Bagian Umum', NULL, ''),
+(14, 'Masrun', 'Pelatih Kepala', NULL, ''),
+(15, 'Andi Purnomo, S.Pd', 'Tim Pelatih', NULL, ''),
+(16, 'Deny Firmansyah, S.Pd', 'Tim Pelatih', NULL, ''),
+(17, 'Sumantri, S.Pd', 'Tim Pelatih', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -350,7 +344,7 @@ ALTER TABLE `tb_admin`
 -- AUTO_INCREMENT for table `tb_anggota`
 --
 ALTER TABLE `tb_anggota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tb_club`
@@ -368,7 +362,7 @@ ALTER TABLE `tb_jadwal_latihan`
 -- AUTO_INCREMENT for table `tb_jadwal_tes`
 --
 ALTER TABLE `tb_jadwal_tes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_kontak`
@@ -380,7 +374,7 @@ ALTER TABLE `tb_kontak`
 -- AUTO_INCREMENT for table `tb_pelatih`
 --
 ALTER TABLE `tb_pelatih`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_pengumuman`
@@ -392,7 +386,7 @@ ALTER TABLE `tb_pengumuman`
 -- AUTO_INCREMENT for table `tb_pengurus`
 --
 ALTER TABLE `tb_pengurus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tb_prestasi`
