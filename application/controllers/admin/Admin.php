@@ -3,21 +3,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
 
+	// deklarasi var table
 	var $table = 'tb_admin';
 
 	function __construct()
 	{
 		parent::__construct();
+		// cek session admin sudah login
 		if ($this->session->userdata('admin_logged_in') !=  "Sudah_Loggin") {
 			echo "<script>
 			alert('Login Dulu!');";
 			echo 'window.location.assign("'.site_url("admin/welcome").'")
 			</script>';
 		}
-		$this->load->model('m_admin','Model');
-		
+		$this->load->model('m_admin','Model');  //load model m_admin
 	}
 
+	// fun json datatables
 	public function json() {
 		if ($this->input->is_ajax_request()) {
 			header('Content-Type: application/json');
@@ -25,26 +27,21 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	// fun halaman admin
 	public function index()
 	{
 		$data['title'] = 'Data Admin';
+		// fun view
 		$this->load->view('admin/temp-header',$data);
 		$this->load->view('admin/v_admin');
 		$this->load->view('admin/temp-footer');
 	}
 
-	public function input()
-	{
-		$title = array('title' => 'Data Admin', );
-		$this->load->view('admin/temp-header',$title);
-		$this->load->view('admin/v_input-pdft');
-		$this->load->view('admin/temp-footer');
-	}
-
-	//input
+	// fun proses tambah
 	public function tambah()
 	{
 		if ($this->input->is_ajax_request()) {
+			// cek username yang terdaftar
 			$DataUser  = array('username' => $this->input->post('username'));
 			if ($this->DButama->GetDBWhere($this->table,$DataUser)->num_rows() == 1) {
 				$data = array();
@@ -55,56 +52,71 @@ class Admin extends CI_Controller {
 				exit();
 			}else{
 				$pass=$this->input->post('password');
-				$hash=password_hash($pass, PASSWORD_DEFAULT);
+				$hash=password_hash($pass, PASSWORD_DEFAULT); //membuat encrypt password
 				$data = array(
 					'id' => $this->input->post('id'),
 					'nama' => $this->input->post('nama'),
 					'username' => $this->input->post('username'),
 					'password' => $hash
 				);
+				// fungsi tambah admin
 				$this->DButama->AddDB($this->table,$data);
 				echo json_encode(array("status" => TRUE));
 			}
 		}
 	}
 
-	//hapus
+	// fun hapus
 	public function hapus($id)
 	{
 		if ($this->input->is_ajax_request()) {
-			$where = array('id' => $id);
-			$this->DButama->GetDBWhere($this->table,$where)->row();
-			$this->DButama->DeleteDB($this->table,$where);
+			$where = array('id' => $id);  //filter berdasarkan id
+			$this->DButama->GetDBWhere($this->table,$where)->row();  //load database
+			$this->DButama->DeleteDB($this->table,$where);  //fun delete
 			echo json_encode(array("status" => TRUE));
 		}
 	}
 
-	//edit
+	// fun edit
 	public function edit($id)
 	{
 		if ($this->input->is_ajax_request()) {
-			$where = array('id' => $id);
-			$data = $this->DButama->GetDBWhere($this->table,$where)->row();
+			$where = array('id' => $id);  //filter berdasarkan id
+			$data = $this->DButama->GetDBWhere($this->table,$where)->row();  //load database
 			echo json_encode($data);
 		}
 	}
 
-	//proses update
+	// fun proses update
 	public function update()
 	{
 		if ($this->input->is_ajax_request()) {
-			$where  = array('id' => $this->input->post('id'));
-			$query = $this->DButama->GetDBWhere($this->table,$where);
+			$where  = array('id' => $this->input->post('id'));  //filter berdasarkan id
+			$query = $this->DButama->GetDBWhere($this->table,$where);  //load database table tb_admin
 			$row = $query->row();
 			$pass=$this->input->post('password');
-			$hash=password_hash($pass, PASSWORD_DEFAULT);
-			$data = array(
+			$hash=password_hash($pass, PASSWORD_DEFAULT);  //membuat encrypt password
+			// jika password tidak di ganti
+			if ($row->password == $this->input->post('password')) {
+				$data = array(
+					'nama' => $this->input->post('nama'),
+					'username' => $this->input->post('username')
+				);
+				// fun update
+				$this->DButama->UpdateDB($this->table,$where,$data);
+				echo json_encode(array("status" => TRUE));
+
+			// jika password diganti
+			} else {
+				$data = array(
 					'nama' => $this->input->post('nama'),
 					'username' => $this->input->post('username'),
 					'password' => $hash
 				);
+				// fun update
 				$this->DButama->UpdateDB($this->table,$where,$data);
 				echo json_encode(array("status" => TRUE));
+			}
 		}
 	}
 

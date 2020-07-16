@@ -57,7 +57,7 @@ class Welcome extends CI_Controller {
 							$sess_data['slug'] = $key->slug;
 							$this->session->set_userdata($sess_data);
 							$this->session->unset_userdata('user_logged_in');
-							redirect('pelatih/home/profil/'.$key->id, 'refresh');
+							redirect('pelatih/home', 'refresh');
 						}
 					}else{
 						$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible" role="alert">

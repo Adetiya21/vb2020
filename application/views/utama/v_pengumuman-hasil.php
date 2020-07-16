@@ -22,8 +22,8 @@
             } ?></strong></p>
         </div>
 
-        <div class="table-responsive ">
-          <table id="compact" class="table table-hover" width="100%">
+        <div class="dt-responsive">
+          <table id="compact" class="table table-responsive table-hover" width="100%">
             <thead>
               <tr><th width="1%">No</th>
               <th>Nama Calon Anggota</th>

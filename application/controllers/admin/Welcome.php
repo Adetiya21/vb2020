@@ -3,29 +3,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
-	function __construct()
-	{
-		parent::__construct();
-		
-	}
-
+	// fun halaman login
 	public function index()
 	{
 		$this->load->view('admin/v_login');
 	}
 
+	// proses login
 	public function login()
 	{
+		// recaptcha google
 		$recaptcha = $this->input->post('g-recaptcha-response');
 		$response = $this->recaptcha->verifyResponse($recaptcha);
 		if (!isset($response['success']) || $response['success'] <> true) {
+			// menampilkan pesan error
 			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<strong>Klik Recaptcha</strong> 
 				</div>');
 			redirect('admin','refresh');
 		} else {
+			//load form validasi
 			$this->load->library('form_validation');
+
+			// field form validasi
 			$config = array(
 				array('field' => 'username','label' => "Username",'rules' => 'required' ),
 				array('field' => 'password','label' => 'Password','rules' => 'required',)
@@ -33,13 +34,16 @@ class Welcome extends CI_Controller {
 			$this->form_validation->set_rules($config);
 			if ($this->form_validation->run() == FALSE)
 			{
+				// menampilkan pesan error
 				$this->session->set_flashdata('username', set_value('username') );
 				$this->session->set_flashdata('password', set_value('password') );
 				$this->session->set_flashdata('error', validation_errors());
 				redirect('admin','refresh');
 			}else{
+				// load databases dengan filter username
 				$query = $this->DButama->GetDBWhere('tb_admin', array('username' => $this->input->post('username'), ));
 				if ($query->num_rows() == 0 ) {
+					// menampilkan pesan error
 					$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<strong>Username / Password Tidak Ada</strong> 
@@ -53,11 +57,14 @@ class Welcome extends CI_Controller {
 							$sess_data['id'] = $key->id;
 							$sess_data['nama'] = $key->nama;
 							$sess_data['username'] = $key->username;
+
+							// menyimpan data ke session admin
 							$this->session->set_userdata($sess_data);
 							$this->session->unset_userdata('user_logged_in');
-							redirect('admin/admin', 'refresh');
+							redirect('admin/home', 'refresh');
 						}
 					}else{
+						// menampilkan pesan error
 						$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<strong>Username / Password Tidak Ada</strong> 
@@ -69,6 +76,7 @@ class Welcome extends CI_Controller {
 		}
 	}
 
+	// proses logout
 	function logout()
 	{
 		$user_data = $this->session->all_userdata();

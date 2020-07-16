@@ -6,8 +6,6 @@
       $('.sejarah').addClass('menu-active');
     });
 </script>
-<?php $ten = $this->DButama->GetDB('tb_club')->row(); ?>
-
     <!--==========================
       Arti Logo Section
     ============================-->
@@ -18,25 +16,20 @@
         </div>
 
         <div class="row">
-
           <div class="col-lg-12">
             <div class="box wow fadeInUp">
               <div class="row">
-          <div class="col-lg-5">
-            <img src="<?= base_url('assets/assets/img/logo/'.$ten->gambar) ?>" alt="" width="400px">
-          </div>
-
-          <div class="col-lg-7">
-            <h2 style="font-weight: bold;color:#0c2e8a"><?= $ten->nama ?></h2>
-            <div style="text-align: justify;margin-left: -100px">
-            	<?= $ten->arti_logo ?>	
+                <div class="col-lg-4">
+                  <div class="icon" style="margin-left: -10px;margin-top: -25px"><img src="<?= base_url('assets/assets/img/logo/'.$ten->gambar) ?>" alt="" width="100%"></div>
+                </div>
+                <div class="col-lg-8">
+                  <h2 class="title" style="font-weight: bold;color:#0c2e8a"><?= $ten->nama ?></h2><hr>
+                  <p class="description" style=""><?= $ten->arti_logo ?></p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-          </div>
-
-        </div>
-
       </div>
     </section><!-- #arti logo -->
 
@@ -47,7 +40,7 @@
       <div class="container">
         <div class="section-header">
           <h2>Sejarah Club</h2>
-          <div style="text-align: center">
+          <div style="text-align: justify;">
           	<?= $ten->sejarah ?>
           </div>
         </div>

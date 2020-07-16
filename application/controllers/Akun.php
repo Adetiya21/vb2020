@@ -3,11 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Akun extends CI_Controller {
 
+	// deklarasi var table
 	var $table = 'tb_anggota';
 
 	function __construct()
 	{
 		parent::__construct();
+		// cek session user sudah login
 		if ($this->session->userdata('user_logged_in') !=  "Sudah_Loggin") {
 			echo "<script>
 			alert('Login Dulu!');";
@@ -16,17 +18,20 @@ class Akun extends CI_Controller {
 		}
 	}
 
+	// meredirect ke fun i
 	public function index()
 	{
 		redirect('akun/i/'.$this->session->userdata('id'),'refresh');
 	}
 
+	// menampilkan halaman akun
 	public function i($id)
 	{
 		$cek = $this->DButama->GetDBWhere($this->table,array('id'=> $id));
 		if ($cek->num_rows() == 1) {
 			$data['profil'] = $cek->row();
 			$data['title']='Data Akun';
+			// fun view
 			$this->load->view('utama/temp-header',$data);
 			$this->load->view('utama/v_akun');
 			$this->load->view('utama/temp-footer');
@@ -35,11 +40,13 @@ class Akun extends CI_Controller {
 		}
 	}
 
-	//proses tambah
+	//fun proses edit data akun
 	public function proses()
 	{
+		//load form validasi
 		$this->load->library('form_validation');
 
+		// field form validasi
 		$config = array(
 			array('field' => 'nama','label' => 'Nama','rules' => 'required',),
 			array('field' => 'tmp_lahir','label' => 'Tempat Lahir','rules' => 'required'),
@@ -58,22 +65,26 @@ class Akun extends CI_Controller {
 		$this->form_validation->set_rules($config);
 		if ($this->form_validation->run() == FALSE)
 		{
+			// menampilkan pesan error
 			$this->session->set_flashdata('error', '<div class="alert alert-danger alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<strong>'.validation_errors().'</strong> 
 						</div>');
 			redirect('akun/i/'.$this->session->userdata('id'),'refresh');
 		} else {
-			$where  = array('id' => $this->input->post('id'));
-			$query = $this->DButama->GetDBWhere($this->table,$where);
+			$where  = array('id' => $this->input->post('id'));  //filter berdasarkan id
+			$query = $this->DButama->GetDBWhere($this->table,$where);  //load database table tb_anggota
 			$row = $query->row();
-			$where_email = array('email' => $this->input->post('email'));
-			$cari_email = $this->DButama->GetDBWhere($this->table,$where_email);
+
+			$where_email = array('email' => $this->input->post('email'));  //filter berdasarkan email
+			$cari_email = $this->DButama->GetDBWhere($this->table,$where_email);  //load database table tb_anggota
+			
 			$pass=$this->input->post('password');
-			$hash=password_hash($pass, PASSWORD_DEFAULT);
+			$hash=password_hash($pass, PASSWORD_DEFAULT);  //membuat encrypt password
+			
 			$tgl_lahir = $this->input->post('tgl_lahir');
-	        $tgl_lahir = date('Y-m-d', strtotime($tgl_lahir));
-			$slug = url_title($this->input->post('nama'), 'dash', TRUE);			
+	        $tgl_lahir = date('Y-m-d', strtotime($tgl_lahir));  //membuat funsi tanggal sesuai format sql
+			$slug = url_title($this->input->post('nama'), 'dash', TRUE);  //membuat data slug berdasarkan nama
 
 			// jika email tidak di ganti
 			if ($row->email == $this->input->post('email')) {
@@ -94,13 +105,15 @@ class Akun extends CI_Controller {
 					'password' => $hash
 				);
 				
-				if($this->input->post('remove_photo')) // hapus gambar
+				 // hapus gambar
+				if($this->input->post('remove_photo'))
 				{
 					if(file_exists('assets/assets/img/anggota/'.$this->input->post('remove_photo')) && $this->input->post('remove_photo'))
 						unlink('assets/assets/img/anggota/'.$this->input->post('remove_photo'));
 					$data['gambar'] = null;
 				}
 
+				// mengupload gambar
 				if(!empty($_FILES['gambar']['name']))
 				{
 					$upload = $this->_do_upload();
@@ -111,9 +124,13 @@ class Akun extends CI_Controller {
 					$data['gambar'] = $upload;
 				}
 
+				// menyimpan data nama ke session user
 				$sess_data['nama'] = $this->input->post('nama');
 				$this->session->set_userdata($sess_data);
+
+				// fungsi update
 				$this->DButama->UpdateDB($this->table,$where,$data);
+				// menampilkan pesan error
 				$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<strong>Akun anda sudah diperbaharui</strong></div>');
@@ -121,6 +138,7 @@ class Akun extends CI_Controller {
 
 			// jika email di ganti ternyata duplikat
 			} else if ($cari_email->num_rows() == 1) {
+				// menampilkan pesan error
             	$this->session->set_flashdata('error', '<div class="alert alert-danger alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<strong>Email Sama / Tidak Boleh Duplikat</strong> 
@@ -146,13 +164,15 @@ class Akun extends CI_Controller {
 					'password' => $hash
 				);
 				
-				if($this->input->post('remove_photo')) // hapus gambar
+				// hapus gambar
+				if($this->input->post('remove_photo')) 
 				{
 					if(file_exists('assets/assets/img/anggota/'.$this->input->post('remove_photo')) && $this->input->post('remove_photo'))
 						unlink('assets/assets/img/anggota/'.$this->input->post('remove_photo'));
 					$data['gambar'] = null;
 				}
 
+				// mengupload gambar
 				if(!empty($_FILES['gambar']['name']))
 				{
 					$upload = $this->_do_upload();
@@ -163,9 +183,13 @@ class Akun extends CI_Controller {
 					$data['gambar'] = $upload;
 				}
 
+				// menyimpan data nama ke session user
 				$sess_data['nama'] = $this->input->post('nama');
 				$this->session->set_userdata($sess_data);
+
+				// fungsi update
 				$this->DButama->UpdateDB($this->table,$where,$data);
+				// menampilkan pesan error
 				$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<strong>Akun anda sudah diperbaharui</strong></div>');
@@ -178,7 +202,7 @@ class Akun extends CI_Controller {
 	//proses upload gambar
 	private function _do_upload()
 	{
-		$config['upload_path']   = 'assets/assets/img/anggota/';
+		$config['upload_path']   = 'assets/assets/img/anggota/';  //lokasi folder
 		$config['allowed_types'] = 'jpg|png|jpeg';
 		$config['remove_spaces'] = TRUE;
 		$config['encrypt_name']  = TRUE;

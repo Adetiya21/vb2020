@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Prestasi_club extends CI_Controller {
 
+    // fun halaman prestasi
 	public function i($page=0)
     {
         $data['title']='Prestasi Club';
@@ -37,12 +38,13 @@ class Prestasi_club extends CI_Controller {
         $query = $this->db->order_by('tgl', 'desc');
         $query = $this->db->get('tb_prestasi', $config['per_page'], $page);
         $data['prestasi'] = $query;
-        
+        // fun view
         $this->load->view('utama/temp-header',$data);
         $this->load->view('utama/v_prestasi-club',$data);
         $this->load->view('utama/temp-footer');
     }
 
+    // meredirect halaman prestasi ke fun i
 	public function index()
 	{
 		redirect('prestasi-club/i','refresh');

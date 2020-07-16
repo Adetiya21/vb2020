@@ -25,7 +25,7 @@
   <script src="<?= base_url('assets/front-end/') ?>lib/sticky/sticky.js"></script>
 
   <!-- Contact Form JavaScript File -->
-  <script src="<?= base_url('assets/front-end/') ?>contactform/contactform.js"></script>
+  <!-- <script src="<?= base_url('assets/front-end/') ?>contactform/contactform.js"></script> -->
 
   <!-- Template Main Javascript File -->
   <script src="<?= base_url('assets/front-end/') ?>js/main.js"></script>

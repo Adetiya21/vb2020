@@ -124,7 +124,7 @@
         {"data": "posisi"},
         // {"data": "view","orderable": false}
         ],
-        order: [[2, 'asc']],
+        order: [[0, 'asc']],
         rowCallback: function(row, data, iDisplayIndex) {
             var info = this.fnPagingInfo();
             var page = info.iPage;

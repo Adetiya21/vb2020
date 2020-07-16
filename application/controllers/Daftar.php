@@ -3,11 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Daftar extends CI_Controller {
 
+	// deklarasi var table
 	var $table = 'tb_anggota';
 
+	// fun halaman daftar
 	public function index()
 	{
 		$data['title']='Daftar Anggota Club';
+		// fun view
 		$this->load->view('utama/temp-header',$data);
 		$this->load->view('utama/v_daftar');
 		$this->load->view('utama/temp-footer');
@@ -16,8 +19,10 @@ class Daftar extends CI_Controller {
 	//proses tambah
 	public function proses()
 	{
+		//load form validasi
 		$this->load->library('form_validation');
 
+		// field form validasi
 		$config = array(
 			array('field' => 'nama','label' => 'Nama','rules' => 'required',),
 			array('field' => 'tmp_lahir','label' => 'Tempat Lahir','rules' => 'required'),
@@ -36,14 +41,17 @@ class Daftar extends CI_Controller {
 		$this->form_validation->set_rules($config);
 		if ($this->form_validation->run() == FALSE)
 		{
+			// menampilkan pesan error
 			$this->session->set_flashdata('error', '<div class="alert alert-danger alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<strong>'.validation_errors().'</strong> 
 						</div>');
 			redirect('daftar','refresh');
 		}else{
+			// cek email yang terdaftar
 			$DataUser  = array('email' => $this->input->post('email'));
 			if ($this->DButama->GetDBWhere($this->table,$DataUser)->num_rows() == 1) {
+				// menampilkan pesan error
 				$this->session->set_flashdata('error', '<div class="alert alert-danger alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<strong>Email Sama / Tidak Boleh Duplikat</strong> 
@@ -51,10 +59,12 @@ class Daftar extends CI_Controller {
 				redirect('daftar','refresh');
 			}else{
 				$pass=$this->input->post('password');
-				$hash=password_hash($pass, PASSWORD_DEFAULT);
+				$hash=password_hash($pass, PASSWORD_DEFAULT);  //membuat encrypt password
+
 				$tgl_lahir = $this->input->post('tgl_lahir');
-		        $tgl_lahir = date('Y-m-d', strtotime($tgl_lahir));
-				$slug = url_title($this->input->post('nama'), 'dash', TRUE);
+		        $tgl_lahir = date('Y-m-d', strtotime($tgl_lahir));  //membuat funsi tanggal sesuai format sql
+				$slug = url_title($this->input->post('nama'), 'dash', TRUE);  //membuat data slug berdasarkan nama
+
 				$data = array(
 					'nama' => $this->input->post('nama'),
 					'tmp_lahir' => $this->input->post('tmp_lahir'),
@@ -73,6 +83,7 @@ class Daftar extends CI_Controller {
 					'password' => $hash
 				);
 				
+				// mengupload gambar
 				$gambar = $_FILES['gambar']['name'];
 				if(!empty($gambar))
 				{
@@ -80,6 +91,7 @@ class Daftar extends CI_Controller {
 					$data['gambar'] = $upload;
 				}
 
+				// fungsi tambah akun
 				$this->DButama->AddDB($this->table,$data);
 				echo "<script>alert('Data kamu sudah dikirim, silahkan lakukan login untuk melihat informasi akun');</script>";
 				redirect('','refresh');
@@ -90,7 +102,7 @@ class Daftar extends CI_Controller {
 	//proses upload gambar
 	private function _do_upload()
 	{
-		$config['upload_path']   = 'assets/assets/img/anggota/';
+		$config['upload_path']   = 'assets/assets/img/anggota/';  //lokasi folder
 		$config['allowed_types'] = 'jpg|png|jpeg';
 		$config['remove_spaces'] = TRUE;
 		$config['encrypt_name']  = TRUE;

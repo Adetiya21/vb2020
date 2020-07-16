@@ -3,22 +3,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
+	// deklarasi var table
 	var $table = 'tb_admin';
 
 	function __construct()
 	{
 		parent::__construct();
+		// cek session admin sudah login
 		if ($this->session->userdata('admin_logged_in') !=  "Sudah_Loggin") {
 			echo "<script>
 			alert('Login Dulu!');";
 			echo 'window.location.assign("'.site_url("admin/welcome").'")
 			</script>';
-			// redirect('admin/welcome');
 		}
 	}
 
+	// fun halaman home admin
 	public function index()
 	{
+		// load data dari database dan menghitung jumlah record
 		$data['anggota'] = $this->DButama->GetDBWhere('tb_anggota', array('status' => 'Anggota'))->num_rows();
 		$data['canggota'] = $this->DButama->GetDBWhere('tb_anggota', array('status' => 'Calon Anggota'))->num_rows();
 		$data['admin'] = $this->DButama->GetDB('tb_admin')->num_rows();
@@ -27,6 +30,8 @@ class Home extends CI_Controller {
 		$data['jtes'] = $this->DButama->GetDB('tb_jadwal_tes')->num_rows();
 		$data['jlat'] = $this->DButama->GetDB('tb_jadwal_latihan')->num_rows();
 		$data['prestasi'] = $this->DButama->GetDB('tb_prestasi')->num_rows();
+		
+		//load data dari database dan melimit hanya menampilkan 5 data terbaru
 		$data['cang'] = $this->db->order_by('id', 'desc');
 		$data['cang'] = $this->db->limit('5');
 		$data['cang'] = $this->DButama->GetDBWhere('tb_anggota', array('status' => 'Calon Anggota'));
@@ -37,18 +42,23 @@ class Home extends CI_Controller {
 	    $query = $this->db->join('tb_pelatih', 'tb_jadwal_tes.id_pelatih = tb_pelatih.id', 'left');
 	    $query = $this->db->get();
 	    $data['kjtes'] = $query;
+
 		$data['title'] = 'Dashboard';
+		// fun view
 		$this->load->view('admin/temp-header',$data);
 		$this->load->view('admin/v_index');
 		$this->load->view('admin/temp-footer');
 	}
 
+	// fun halaman profil akun
 	public function profil($id)
 	{
-		$cek = $this->DButama->GetDBWhere($this->table,array('id'=> $id));
+		// cek berdasarkan id
+		$cek = $this->DButama->GetDBWhere($this->table,array('id'=> $id)); //load database dengan filter id
 		if ($cek->num_rows() == 1) {
 			$data['profil'] = $cek->row();
 			$data['title'] = 'Profil';
+			// fun view
 			$this->load->view('admin/temp-header',$data);
 			$this->load->view('admin/v_profil',$data);
 			$this->load->view('admin/temp-footer');
@@ -57,10 +67,13 @@ class Home extends CI_Controller {
 		}
 	}
 
+	// proses update akun
 	function edit_profil()
 	{
+		//load form validasi
 		$this->load->library('form_validation');
 
+		// field form validasi
 		$config = array(
 			array('field' => 'nama','label' => 'Nama','rules' => 'required',),
 			array('field' => 'username','label' => 'Username','rules' => 'required'),
@@ -69,22 +82,30 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules($config);
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->session->set_flashdata('error', validation_errors());
+			// menampilkan pesan error
+			$this->session->set_flashdata('error', '<div class="alert alert-danger alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<strong>'.validation_errors().'</strong> 
+						</div>');
 			redirect('admin/home/profil/'.$this->session->userdata('id').'','refresh');
 		}else{
-			$where  = array('id' => $this->input->post('id'));
-			$query = $this->DButama->GetDBWhere($this->table,$where);
+			$where  = array('id' => $this->input->post('id'));  //filter berdasarkan id
+			$query = $this->DButama->GetDBWhere($this->table,$where);  //load database table tb_admin
 			$row = $query->row();
 				$pass=$this->input->post('password');
-				$hash=password_hash($pass, PASSWORD_DEFAULT);
+				$hash=password_hash($pass, PASSWORD_DEFAULT);  //membuat encrypt password
 				$data = array(
 					'nama' => $this->input->post('nama'),
 					'username' => $this->input->post('username'),
 					'password' => $hash
 				);
+				// menyimpan data nama ke session admin
 				$sess_data['nama'] = $this->input->post('nama');
 				$this->session->set_userdata($sess_data);
+
+				// fungsi update
 				$this->DButama->UpdateDB($this->table,$where,$data);
+				// menampilkan pesan error
 				$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<strong>Akun anda sudah diperbaharui</strong> 

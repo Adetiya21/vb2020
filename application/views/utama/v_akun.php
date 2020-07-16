@@ -133,6 +133,9 @@
                         <label >Foto</label>                                  
                         <input id="uploadImage" type="file" name="gambar" onchange="PreviewImage();" class="form-control" />   
                         <p style="font-size: 0.8em; padding: 5px;">JPG, JPEG, PNG - Max. 2MB</p>
+                        <?php if ($profil->gambar==null) {
+                            echo "((tidak ada foto))";
+                        } else {?>
                         <div class="form-group" id="photo-preview">
                             <div>
                             <input type="checkbox" name="remove_photo" value="<?= $profil->gambar ?>"/> Hapus foto lama?
@@ -145,6 +148,7 @@
                             <span class="help-block"></span>
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="col-md-12">

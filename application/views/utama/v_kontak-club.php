@@ -17,7 +17,6 @@
         </div>
 
         <div class="row contact-info">
-          <?php $kon = $this->DButama->GetDB('tb_kontak')->row(); ?>
           <div class="col-md-4">
             <div class="contact-address">
               <i class="ion-ios-location-outline"></i>

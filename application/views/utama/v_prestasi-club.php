@@ -22,10 +22,16 @@
           <?php foreach ($prestasi->result() as $key) { ?>
           <div class="col-lg-6">
             <div class="box wow fadeInUp">
-              <div class="icon" style="margin-left: -10px;"><img src="<?= base_url('assets/assets/img/prestasi/'.$key->gambar) ?>" alt="" width="80px"></div>
-              <h4 class="title" style="margin-bottom: 0px;"><a href=""><?= $key->hasil ?></a></h4>
-              <span style="font-size: 0.7em; margin-left: 30px;"><?= $key->tgl ?> | Tim <?= $key->tim ?></span>
-              <p class="description" style="margin-top: 10px;"><?= $key->keterangan ?></p>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="icon" style="margin-left: -20px;"><img src="<?= base_url('assets/assets/img/prestasi/'.$key->gambar) ?>" alt="" width="150px"></div>
+                </div>
+                <div class="col-lg-8">
+                  <h4 class="title" style="margin-bottom: 0;margin-left: 0;"><a href=""><?= $key->hasil ?></a></h4>
+                  <span style="font-size: 0.7em; margin-left: 0;"><?= date('d-m-Y', strtotime($key->tgl)) ?> | Tim <?= $key->tim ?></span><hr>
+                  <p class="description" style="margin-top: 10px;margin-left: 0;"><?= $key->keterangan ?></p>
+                </div>
+              </div>              
             </div>
           </div>
           <?php } ?>

@@ -137,7 +137,7 @@
         {"data": "posisi"},
         {"data": "view","orderable": false}
         ],
-        order: [[2, 'asc']],
+        order: [[0, 'asc']],
         rowCallback: function(row, data, iDisplayIndex) {
             var info = this.fnPagingInfo();
             var page = info.iPage;
@@ -349,7 +349,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label >Posisi</label>
-                                    <input type="text" class="form-control" placeholder="Posisi" name="posisi" required/>
+                                    <select name="posisi" class="form-control">
+                                        <option value="Pemilik Club">Pemilik Club</option>
+                                        <option value="Penasehat">Penasehat</option>
+                                        <option value="Ketua">Ketua</option>
+                                        <option value="Wakil Ketua">Wakil Ketua</option>
+                                        <option value="Pelatih Kepala">Pelatih Kepala</option>
+                                        <option value="Tim Pelatih">Tim Pelatih</option>
+                                        <option value="Bagian Umum">Bagian Umum</option>
+                                        <option value="Sekretaris">Sekretaris</option>
+                                        <option value="Bendahara">Bendahara</option>
+                                    </select>
                                     <span class="help-block"></span>
                                 </div>
                                 <div class="form-group">

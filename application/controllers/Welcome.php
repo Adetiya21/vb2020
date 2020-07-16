@@ -3,27 +3,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
-	var $table = 'tb_siswa';
-
-	function __construct()
-	{
-		parent::__construct(); 
-	}
-
 	public function get_tokens($value="") {
 		if ($this->session->userdata('vb2020') == "SudahMasukMas") {
 			echo $this->security->get_csrf_hash();
 		}
 	}
 
+	// fun halaman home
 	public function index()
 	{
+		$data['ten'] = $this->DButama->GetDB('tb_club')->row();  //load database tb_club
+
+		// filter berdasarkan tgl terbaru dengan limit yang ditampilkan sebanyak 2 data
+		$data['prestasi'] = $this->db->limit('2');
+		$data['prestasi'] = $this->db->order_by('tgl', 'desc');
+        $data['prestasi'] = $this->DButama->GetDB('tb_prestasi');  //load database tb_prestasi
+
+        $data['pelatih'] = $this->DButama->GetDB('tb_pelatih');  //load database tb_pelatih
+        
 		$data['title'] = 'Selamat Datang';
+		// fun view
 		$this->load->view('utama/temp-header',$data);
-		$this->load->view('utama/v_index');
+		$this->load->view('utama/v_index',$data);
 		$this->load->view('utama/temp-footer');
 	}
 
+	// fun login
 	public function login()
 	{
 		$recaptcha = $this->input->post('g-recaptcha-response');
@@ -54,9 +59,9 @@ class Welcome extends CI_Controller {
 							$sess_data['no_telp'] = $key->no_telp;
 							$sess_data['alamat'] = $key->alamat;
 							$sess_data['id'] = $key->id;
-							$this->session->set_userdata($sess_data);
-							$this->session->unset_userdata('admin_logged_in');
-							$this->session->unset_userdata('pelatih_logged_in');
+							$this->session->set_userdata($sess_data);  //menyimpan data user ke session
+							$this->session->unset_userdata('admin_logged_in');  //mengeluarkan session admin
+							$this->session->unset_userdata('pelatih_logged_in');  //mengeluarkan session pelatih
 							echo json_encode(array("status" => TRUE));
 						}
 					}
@@ -65,6 +70,7 @@ class Welcome extends CI_Controller {
 		}
 	}
 
+	// fun logout
 	function logout()
 	{
 		$user_data = $this->session->all_userdata();
@@ -75,5 +81,4 @@ class Welcome extends CI_Controller {
 		}
 		redirect('welcome','refresh');
 	}
-
 }

@@ -31,13 +31,13 @@
   <!-- Recapcha -->
   <?=  $this->recaptcha->getScriptTag(); ?>
 </head>
-
+<?php $kon = $this->DButama->GetDB('tb_kontak')->row(); ?>
+<?php $ten = $this->DButama->GetDB('tb_club')->row(); ?>
 <body id="body">
 
   <!--==========================
     Top Bar
   ============================-->
-  <?php $kon = $this->DButama->GetDB('tb_kontak')->row(); ?>
   <section id="topbar" class="d-none d-lg-block">
     <div class="container clearfix">
       <div class="contact-info float-left">
@@ -66,7 +66,7 @@
       </div>
     </div>
   </section>
-  <?php $ten = $this->DButama->GetDB('tb_club')->row(); ?>
+
   <!--==========================
     Header
   ============================-->
@@ -100,57 +100,54 @@
             </ul>
           </li>
           <li class="kontak"><a href="<?= site_url('kontak') ?>">Kontak Club</a></li>
-          <!-- <li><a href="javascript:void(0)" onclick="login()"><span class="text-uppercase"><i class=" fa fa-sign-in"></i> <span class="text-uppercase">Login</span></a></li>
-          <li><span style="border-left: 1px solid #e9e9e9;"></span></li>
-          <li><a href="javascript:void(0)" onclick="tambah()"><span class="text-uppercase"><i class=" fa fa-user"></i> Daftar</span></a></li> -->
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
-  </header><!-- #header -->
+  </header>
+  <!-- #header -->
 
-<!--==========================
+  <!--==========================
     Login Modal
   ============================-->
-    <?php if ($this->session->userdata('user_logged_in') != 'Sudah_Loggin') {
-        ?>
-        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
-            <div class="modal-dialog" style="width: 367px">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <h3 class="modal-title">LOGIN</h3>
-		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		            </div>
-                    <div class="modal-body">
-                        <form action="#" id="form-login" class="form-horizontal">
-                            <input type="hidden" id="csrfHash" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
-                            <input type="hidden" name="id" required/>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Email" name="email" required/>
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password" name="password" required/>
-                                    <span class="help-block"></span>
-                                </div>   
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <?= $this->recaptcha->getWidget() ?>
-                                </div>   
-                            </div>
-                            <button type="button" id="btnLogin" onclick="savelogin()" class="btn btn-block btn-success"> Login</button>    
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        Powered by&nbsp;<a href="<?php echo site_url() ?>"><?= $ten->nama ?></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php } ?>
+  <?php if ($this->session->userdata('user_logged_in') != 'Sudah_Loggin') { ?>
+  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+      <div class="modal-dialog" style="width: 367px">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3 class="modal-title">LOGIN</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+              <div class="modal-body">
+                  <form action="#" id="form-login" class="form-horizontal">
+                      <input type="hidden" id="csrfHash" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
+                      <input type="hidden" name="id" required/>
+                      <div class="col-lg-12">
+                          <div class="form-group">
+                              <input type="email" class="form-control" placeholder="Email" name="email" required/>
+                              <span class="help-block"></span>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="form-group">
+                              <input type="password" class="form-control" placeholder="Password" name="password" required/>
+                              <span class="help-block"></span>
+                          </div>   
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="form-group">
+                              <?= $this->recaptcha->getWidget() ?>
+                          </div>   
+                      </div>
+                      <button type="button" id="btnLogin" onclick="savelogin()" class="btn btn-block btn-success"> Login</button>    
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  Powered by&nbsp;<a href="<?php echo site_url() ?>"><?= $ten->nama ?></a>
+              </div>
+          </div>
+      </div>
+  </div>
+  <?php } ?>
 
 <!-- *** LOGIN MODAL END *** -->
 
