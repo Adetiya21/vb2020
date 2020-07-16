@@ -21,23 +21,17 @@ class M_utama extends CI_Model {
 	}
 	public function GetDB($table='')
 	{
-		# code...
 		return $this->db->get($table);
-
 	}
 
 	public function GetDBWhere($table='',$where='')
 	{
-		# code...
 		return $this->db->get_where($table,$where);
-
 	}
 
 	public function AddDB($table='',$object='')
 	{
-		# code...
 		return $this->db->insert($table, $object);
-
 	}
 
 	public function DeleteDB($table='',$object='')

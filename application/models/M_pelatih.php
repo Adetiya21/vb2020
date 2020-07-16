@@ -3,8 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_pelatih extends CI_Model {
 
+	// deklarasi var table
 	var $table = 'tb_pelatih';
 
+	// load database pelatih yang diakses oleh admin
 	public function json() {
 		$this->datatables->select('id,nama,no_telp,email,melatih,pengalaman,alamat,gambar,slug,password');
 		$this->datatables->from($this->table);
@@ -16,6 +18,7 @@ class M_pelatih extends CI_Model {
 		return $this->datatables->generate();
 	}
 
+	// load database pelatih yang diakses oleh pelatih
 	public function json_pelatih() {
 		$this->datatables->select('id,nama,no_telp,email,melatih,pengalaman,alamat,gambar,slug,password');
 		$this->datatables->from($this->table);

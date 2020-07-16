@@ -3,8 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_admin extends CI_Model {
 
+	// deklarasi var table
 	var $table = 'tb_admin';
 
+	// load database anggota yang diakses oleh admin
 	public function json() {
 		$this->datatables->select('id,nama,username,password,');
 		$this->datatables->from($this->table);

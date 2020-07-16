@@ -3,8 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_pengurus extends CI_Model {
 
+	// deklarasi var table
 	var $table = 'tb_pengurus';
 
+	// load database pengurus
 	public function json() {
 		$this->datatables->select('id,nama,posisi,gambar,slug,');
 		$this->datatables->from($this->table);

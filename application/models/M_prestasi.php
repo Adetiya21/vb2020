@@ -3,8 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_prestasi extends CI_Model {
 
+	// deklarasi var table
 	var $table = 'tb_prestasi';
 
+	// load database prestasi
 	public function json() {
 		$this->datatables->select('id,tgl,gambar,keterangan,hasil,tim');
 		$this->datatables->from($this->table);

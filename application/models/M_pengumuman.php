@@ -3,10 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_pengumuman extends CI_Model {
 
+	// deklarasi var table
 	var $table = 'tb_jadwal_tes';
 	var $tablepelatih = 'tb_pelatih';
 	var $tablepengumuman = 'tb_pengumuman';
 
+	// load database pengumuman yang diakses oleh admin
 	public function json() {
 		$this->datatables->select('
 			tb_jadwal_tes.id,
@@ -23,6 +25,7 @@ class M_pengumuman extends CI_Model {
 		return $this->datatables->generate();
 	}
 
+	// load database pengumuman yang diakses oleh pelatih
 	public function json_pelatih() {
 		$this->datatables->select('
 			tb_jadwal_tes.id,
@@ -40,6 +43,7 @@ class M_pengumuman extends CI_Model {
 		return $this->datatables->generate();
 	}
 
+	// load database pengumuman yang diakses oleh anggota
 	public function json_anggota() {
 		$this->datatables->select('
 			tb_jadwal_tes.id,
@@ -56,6 +60,7 @@ class M_pengumuman extends CI_Model {
 		return $this->datatables->generate();
 	}
 
+	// load database hasil pengumuman yang diakses oleh admin dan pelatih
 	public function json_hasil($id_jtes) {
 		$this->datatables->select('
 			tb_pengumuman.id, tb_pengumuman.id_jadwal_tes, tb_pengumuman.id_anggota, tb_pengumuman.keterangan,
@@ -75,6 +80,7 @@ class M_pengumuman extends CI_Model {
 		return $this->datatables->generate();
 	}
 
+	// load database hasil pengumuman yang diakses oleh anggota
 	public function json_hasil_anggota($id_jtes) {
 		$this->datatables->select('
 			tb_pengumuman.id, tb_pengumuman.id_jadwal_tes, tb_pengumuman.id_anggota, tb_pengumuman.keterangan,

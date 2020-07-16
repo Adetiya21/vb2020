@@ -3,9 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_jadwal_tes extends CI_Model {
 
+	// deklarasi var table
 	var $table = 'tb_jadwal_tes';
 	var $tablepelatih = 'tb_pelatih';
 
+	// load database jadwal latihan
 	public function json() {
 		$this->datatables->select('
 			tb_jadwal_tes.id,

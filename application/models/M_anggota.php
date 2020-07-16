@@ -3,8 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_anggota extends CI_Model {
 
+	// deklarasi var table
 	var $table = 'tb_anggota';
 
+	// load database anggota yang diakses oleh admin
 	public function json() {
 		$this->datatables->select('id,nama,tmp_lahir,tgl_lahir,jenkel,prestasi,tinggi,berat,posisi,email,no_telp,alamat,status,gambar,slug,password');
 		$this->datatables->from($this->table);
@@ -17,6 +19,7 @@ class M_anggota extends CI_Model {
 		return $this->datatables->generate();
 	}
 
+	// load database calon anggota yang diakses oleh admin
 	public function json_calon() {
 		$this->datatables->select('id,nama,tmp_lahir,tgl_lahir,jenkel,prestasi,tinggi,berat,posisi,email,no_telp,alamat,status,gambar,slug,password');
 		$this->datatables->from($this->table);
@@ -29,6 +32,7 @@ class M_anggota extends CI_Model {
 		return $this->datatables->generate();
 	}
 
+	// load database anggota yang diakses oleh pelatih
 	public function json_pelatih() {
 		$this->datatables->select('id,nama,tmp_lahir,tgl_lahir,jenkel,prestasi,tinggi,berat,posisi,email,no_telp,alamat,status,gambar,slug,password');
 		$this->datatables->from($this->table);
@@ -40,6 +44,7 @@ class M_anggota extends CI_Model {
 		return $this->datatables->generate();
 	}
 
+	// load database calon anggota yang diakses oleh pelatih
 	public function json_pelatih_calon() {
 		$this->datatables->select('id,nama,tmp_lahir,tgl_lahir,jenkel,prestasi,tinggi,berat,posisi,email,no_telp,alamat,status,gambar,slug,password');
 		$this->datatables->from($this->table);
@@ -51,6 +56,7 @@ class M_anggota extends CI_Model {
 		return $this->datatables->generate();
 	}
 
+	// load database anggota di frontend
 	public function json_pemain() {
 		$this->datatables->select('id,nama,tmp_lahir,tgl_lahir,jenkel,prestasi,tinggi,berat,posisi,email,no_telp,alamat,status,gambar,slug,password');
 		$this->datatables->from($this->table);
