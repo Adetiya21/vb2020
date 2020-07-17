@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700" rel="stylesheet">
 
   <!-- Bootstrap CSS File -->
-  <link href="<?= base_url('assets/front-end/') ?>lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?= base_url('assets/front-end/') ?>lib/bootstrap/css/bootstrap.css" rel="stylesheet">
 
   <!-- Libraries CSS Files -->
   <link href="<?= base_url('assets/front-end/') ?>lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -79,6 +79,19 @@
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
+          <?php if ($this->session->userdata('user_logged_in') == 'Sudah_Loggin') { ?>
+          <li class="akun menu-has-children visible-xs visible-sm"><a href="javascript:void(0)"><?php echo $this->session->userdata('nama');  ?></strong></a>
+            <ul>
+              <li><i class="fa fa-user"></i> <a href="<?php echo site_url('akun/i/'.$this->session->userdata('id')); ?>">Akun</a>
+              </li>
+              <li><i class="fa fa-sign-in"></i> <a href="<?php echo site_url('logout'); ?>">Logout</a>
+              </li>
+            </ul>
+          </li>
+          <?php } else { ?>
+          <li class="visible-xs visible-sm"><a href="javascript:void(0)" onclick="login()">Login</a></li>
+          <li class="visible-xs visible-sm"><a href="javascript:void(0)" onclick="daftar()">Daftar</a></li>
+          <?php } ?>
           <li class="home"><a href="<?= site_url() ?>">Home</a></li>
           <li class="prestasi"><a href="<?= site_url('prestasi-club') ?>">Prestasi</a></li>
           <li class="club menu-has-children"><a href="javascript:void(0)">Club</a>

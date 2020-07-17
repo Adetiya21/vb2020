@@ -391,6 +391,13 @@ h6, .h6 {
   font-size: 1rem;
 }
 
+.visible-xs,
+.visible-sm,
+.visible-md,
+.visible-lg {
+  display: none !important;
+}
+
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
@@ -1901,6 +1908,9 @@ pre code {
   .table-responsive-sm > .table-bordered {
     border: 0;
   }
+  .visible-xs {
+    display: block !important;
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -1913,6 +1923,9 @@ pre code {
   }
   .table-responsive-md > .table-bordered {
     border: 0;
+  }
+  .visible-xs {
+    display: block !important;
   }
 }
 
